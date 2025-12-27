@@ -1,65 +1,37 @@
-                                 #      DESCRIÇÃO      #
+                         # 🚚 Sistema de Entregas com Restrição de Tempo
 
-#     para esse exercício, como descrito na DICA, utilizei um código baseado no BELLMAN-FORD-MOORE.                
+##  Descrição
+Neste projeto foi implementada uma solução para um problema de **entregas entre cidades**, considerando **distância mínima** e **tempo máximo permitido**.  
+A abordagem utilizada é baseada no algoritmo **Bellman-Ford-Moore**, conforme sugerido na dica do exercício, adaptado para trabalhar com restrição de tempo.
 
-#                                                    
-#   ___________________                                                                 / \
-#   |              |   \                              _____        _____     __________/ o \/\_________      _________
-#   |  ENTREGAS    |____\_____                       |o o o|_______|    |___|               | | # # #  |____|o o o o  | /\
-#   | _____        |    |_o__ |                      |o o o|  * * *|: ::|. .|     CIDADES   |o| # # #  |. . |o o o o  |//\\
-#   [/ ___ \       |   / ___ \|     --------->       |o o o|* * *  |::  |. .| []  []  []  []|o| # # #  |. . |o o o o  |((|))        
-#  []_/.-.\_\______|__/_/.-.\_[]                     |o o o|**  ** |:  :|. .| []  []  []    |o| # # #  |. . |o o o o  |((|))
-#     |(O)|             |(O)|                        |_[]__|__[]___|_||_|__<|____________;;_|_|___/\___|_.|_|____[]___|  |
-#      '-'               '-'
+A solução utiliza **programação dinâmica** para calcular a menor distância possível para alcançar uma cidade em um determinado intervalo de tempo.
 
+---
 
+## Abordagem Utilizada
+- Algoritmo inspirado no **Bellman-Ford-Moore**
+- Uso de **Programação Dinâmica**
+- Controle de estados por **tempo máximo (6000 minutos)**
+- Busca pelo menor custo (distância) dentro do tempo permitido
 
-                                 #      DESCRIÇÃO DO CÓDIGO      #
+---
 
+## Descrição do Código
 
-#     (linha 4) INFINITO = 10**12   ---> representa o " dist[v] := INFINITO" do pseudo código do bellman.
+### Constantes e Estruturas
+- **INFINITO = 10¹²**  
+  Representa o valor inicial de distância infinita (`dist[v] := INFINITO` no pseudocódigo do Bellman-Ford).
 
-#     (linha 6) n_cida ----> representa o número de cidades
-#     (linha 6) estradas ---> é o numero de estradas.
-#     (linha 6) adj ---> é a lista de vértices adjacentes.
-#     (linha 6) entregas ---> é a lista de entregas que vai ser verificada.
-#     (linha 6) inst_num ---> são as intâncias.
+- **n_cida** → número de cidades  
+- **estradas** → número de estradas  
+- **adj** → lista de vértices adjacentes  
+- **entregas** → lista de entregas a serem verificadas  
+- **inst_num** → número da instância do problema  
 
-#     (linha 8) out_lines.append(f"Instancia {inst_num}") --> impriime a instânia i 
+---
 
-#     (linha 10) temp_max --> tempo máximo (6000 minutos).
-
-#     (linha 11)  dp = [ [INFINITO] * (n_cida+1) for _ in range(temp_max+1) ]
-#      ---> cria a tabela com a menor distância para alcançar v em tantos minutos.
-#      ---> utilizando a lógica da busca em largura para as menores distâncias.
-
-#     (linha 12)  nos_finitos ---> guarda os nós
-
-#     (linha 14)  dp[0][cidade] = 0 --->  dist[s] := 0  (referente ao pseudo código)
-#      começa na distancia 0
-
-#     (linha 17)  for t in range(0, temp_max+1): ---> vai processando os tempos
-
-#     (linha 18)  if not nos_finitos[t]: ---> se nenhum nó é alcançável nos tempo máximo, não há nada para melhorar.
-
-#     (linha 20 - 32)  for u in nos_finitos[t]: ---> cada aresta u -> v
-#                                                    tau = tempo
-
-#     (linha 35 - 39)  melhor_tempo = T ---> encontra a melhor distancia                                               
-
-#     (linha 42)  out_lines.append("Impossivel") ---> imprime "impossivel" para os impossíveis
-
-#     (linha 44)  out_lines.append(f"Possivel - {melhor_distancia} km, {melhor_tempo} min") 
-#                 ---> imprime "Possivel - <d> km, <t> min, onde <d>"
-
-#     (linha 49)   data = sys.stdin.read().strip().split() ---> le as entradas
-
-#     (linha 50)   it = iter(data) ---> vai consumindo um por um 
-
-#     (linha 59)   nos_de = [[] for _ in range(n+1)] ---> lista de adjacências
-
-#     (linha 61)   x = int(next(it)); y = int(next(it)); c = int(next(it)); t = int(next(it))
-#                 ---> estrada percorrida x→y com comprimento c e tempo t
-
-#     (linha 59)   sys.stdout.write("\n".join(out)) ---> imprme  resultado final
+### Processamento das Instâncias
+- Impressão do cabeçalho:
+  ```python
+  out_lines.append(f"Instancia {inst_num}")
 
